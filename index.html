@@ -480,6 +480,44 @@ section { padding: 100px 5vw; }
 }
 .form-submit:hover { background: var(--ink-soft); transform: translateY(-1px); }
 
+/* ── LEGAL MODAL ─────────────────────────────────────────────── */
+.legal-modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(13,27,42,.7); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.legal-modal-overlay.open { display: flex; }
+.legal-modal {
+  background: var(--white); border-radius: 16px;
+  max-width: 720px; width: 100%; max-height: 85vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,.25);
+}
+.legal-modal-header {
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid var(--mist);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.legal-modal-header h2 { font-size: 1.2rem; color: var(--ink); margin: 0; }
+.legal-modal-close {
+  background: none; border: none; cursor: pointer;
+  font-size: 1.4rem; color: var(--ink-soft); line-height: 1;
+  padding: 4px 8px; border-radius: 6px; transition: background .15s;
+}
+.legal-modal-close:hover { background: var(--mist); }
+.legal-modal-body {
+  padding: 1.5rem 2rem 2rem; overflow-y: auto; flex: 1;
+  font-size: .9rem; color: var(--ink-soft); line-height: 1.7;
+}
+.legal-modal-body h3 {
+  font-size: 1rem; color: var(--ink); margin: 1.5rem 0 .4rem;
+}
+.legal-modal-body h3:first-child { margin-top: 0; }
+.legal-modal-body p { margin: 0 0 .6rem; }
+.legal-modal-body ul { padding-left: 1.4rem; margin: 0 0 .6rem; }
+.legal-modal-body ul li { margin-bottom: .3rem; }
+
 /* ── FOOTER ─────────────────────────────────────────────────── */
 footer {
   background: var(--ink);
@@ -974,6 +1012,15 @@ footer {
         <label>Тип груза и объём</label>
         <textarea placeholder="Опишите груз: тип, вес, габариты…"></textarea>
       </div>
+      <div class="form-field" style="flex-direction:row;align-items:flex-start;gap:.75rem;margin-top:.25rem;">
+        <input type="checkbox" id="consent" required style="margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:var(--amber);cursor:pointer;">
+        <label for="consent" style="font-size:.82rem;color:var(--ink-soft);cursor:pointer;line-height:1.5;">
+          Я согласен(а) на обработку персональных данных в соответствии с
+          <a href="#" onclick="openLegal('privacy');return false;" style="color:var(--amber);text-decoration:underline;">Политикой конфиденциальности</a>
+          и принимаю
+          <a href="#" onclick="openLegal('terms');return false;" style="color:var(--amber);text-decoration:underline;">Пользовательское соглашение</a>
+        </label>
+      </div>
       <button type="submit" class="form-submit">Отправить заявку</button>
     </form>
   </div>
@@ -983,6 +1030,10 @@ footer {
 <footer>
   <div class="footer-logo">Тандем<span>Строй</span></div>
   <div>© 2026 ТандемСтрой. Грузоперевозки по Черноземью</div>
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+    <a href="#" onclick="openLegal('privacy');return false;" style="color:rgba(255,255,255,.4);text-decoration:none;font-size:.8rem;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Политика конфиденциальности</a>
+    <a href="#" onclick="openLegal('terms');return false;" style="color:rgba(255,255,255,.4);text-decoration:none;font-size:.8rem;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Пользовательское соглашение</a>
+  </div>
 </footer>
 
 <!-- ── CHAT WIDGET ── -->
@@ -1285,6 +1336,132 @@ async function handleForm(e) {
     if (inp.value === '+7 (') inp.value = '';
   });
 })();
+</script>
+<!-- ── ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ── -->
+<div class="legal-modal-overlay" id="modal-privacy" onclick="closeLegalOnOverlay(event,'modal-privacy')">
+  <div class="legal-modal">
+    <div class="legal-modal-header">
+      <h2>Политика конфиденциальности</h2>
+      <button class="legal-modal-close" onclick="closeLegal('privacy')">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки персональных данных пользователей сайта <strong>tandemstroy-vrn.ru</strong>, принадлежащего ООО «ТандемСтрой» (далее — «Оператор»).</p>
+
+      <h3>1. Какие данные мы собираем</h3>
+      <p>При заполнении формы заявки мы получаем следующие персональные данные:</p>
+      <ul>
+        <li>Имя и фамилия</li>
+        <li>Номер телефона</li>
+        <li>Адрес электронной почты</li>
+        <li>Информация о маршруте и грузе (не является персональными данными)</li>
+      </ul>
+
+      <h3>2. Цели обработки данных</h3>
+      <p>Персональные данные обрабатываются исключительно в следующих целях:</p>
+      <ul>
+        <li>Обработка и выполнение заявки на грузоперевозку</li>
+        <li>Связь с клиентом для уточнения деталей заказа</li>
+        <li>Отправка информационных сообщений об услугах компании (с возможностью отказа)</li>
+      </ul>
+
+      <h3>3. Основание обработки</h3>
+      <p>Обработка персональных данных осуществляется на основании согласия субъекта персональных данных (ст. 6 Федерального закона № 152-ФЗ «О персональных данных»).</p>
+
+      <h3>4. Хранение и защита данных</h3>
+      <p>Данные хранятся на защищённых серверах с ограниченным доступом. Мы не передаём персональные данные третьим лицам без явного согласия, за исключением случаев, предусмотренных законодательством РФ.</p>
+
+      <h3>5. Срок хранения</h3>
+      <p>Персональные данные хранятся до момента отзыва согласия субъектом, либо не более 3 лет с момента последнего взаимодействия.</p>
+
+      <h3>6. Права пользователя</h3>
+      <p>Вы вправе в любое время:</p>
+      <ul>
+        <li>Запросить информацию об обрабатываемых данных</li>
+        <li>Потребовать исправления или удаления данных</li>
+        <li>Отозвать согласие на обработку</li>
+      </ul>
+      <p>Для реализации прав обратитесь по электронной почте: <strong>m76655892@gmail.com</strong></p>
+
+      <h3>7. Cookies</h3>
+      <p>Сайт использует технические cookies для корректной работы. Персональные данные через cookies не собираются.</p>
+
+      <h3>8. Контакты оператора</h3>
+      <p>ООО «ТандемСтрой», Воронеж, ул. Примерная, 1<br>
+      Тел.: +7 (903) 656-56-56<br>
+      Email: m76655892@gmail.com</p>
+
+      <p style="margin-top:1.5rem;font-size:.8rem;color:#9ca3af;">Дата последнего обновления: октябрь 2026 г.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ ── -->
+<div class="legal-modal-overlay" id="modal-terms" onclick="closeLegalOnOverlay(event,'modal-terms')">
+  <div class="legal-modal">
+    <div class="legal-modal-header">
+      <h2>Пользовательское соглашение</h2>
+      <button class="legal-modal-close" onclick="closeLegal('terms')">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p>Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует использование сайта <strong>tandemstroy-vrn.ru</strong> (далее — «Сайт»). Используя Сайт, вы принимаете условия настоящего Соглашения.</p>
+
+      <h3>1. Общие положения</h3>
+      <p>Сайт принадлежит и управляется ООО «ТандемСтрой». Информация, размещённая на Сайте, носит ознакомительный характер и не является публичной офертой.</p>
+
+      <h3>2. Условия использования сайта</h3>
+      <p>Пользователь обязуется:</p>
+      <ul>
+        <li>Использовать Сайт только в законных целях</li>
+        <li>Предоставлять достоверную информацию при заполнении форм</li>
+        <li>Не нарушать работу Сайта и его технической инфраструктуры</li>
+        <li>Не копировать и не распространять материалы Сайта без разрешения</li>
+      </ul>
+
+      <h3>3. Оформление заявки</h3>
+      <p>Заявка, поданная через форму на Сайте, является предварительным запросом на услугу грузоперевозки. Договор на оказание услуг заключается отдельно после согласования условий с менеджером компании.</p>
+
+      <h3>4. Интеллектуальная собственность</h3>
+      <p>Все материалы Сайта (тексты, изображения, дизайн, логотипы) являются собственностью ООО «ТандемСтрой» и защищены законодательством об авторском праве. Любое использование без письменного разрешения запрещено.</p>
+
+      <h3>5. Ограничение ответственности</h3>
+      <p>ООО «ТандемСтрой» не несёт ответственности за:</p>
+      <ul>
+        <li>Временную недоступность Сайта по техническим причинам</li>
+        <li>Действия третьих лиц, получивших доступ к данным пользователя вследствие действий самого пользователя</li>
+        <li>Содержимое внешних ресурсов, на которые ведут ссылки с Сайта</li>
+      </ul>
+
+      <h3>6. Изменение условий</h3>
+      <p>Мы вправе в любое время изменить настоящее Соглашение. Актуальная версия всегда доступна на Сайте. Продолжение использования Сайта после публикации изменений означает ваше согласие с новыми условиями.</p>
+
+      <h3>7. Применимое право</h3>
+      <p>Настоящее Соглашение регулируется законодательством Российской Федерации. Все споры разрешаются в судебном порядке по месту нахождения Оператора.</p>
+
+      <h3>8. Контакты</h3>
+      <p>По вопросам, связанным с Соглашением: <strong>m76655892@gmail.com</strong></p>
+
+      <p style="margin-top:1.5rem;font-size:.8rem;color:#9ca3af;">Дата последнего обновления: октябрь 2026 г.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function openLegal(type) {
+  document.getElementById('modal-' + type).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal(type) {
+  document.getElementById('modal-' + type).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLegalOnOverlay(e, id) {
+  if (e.target === document.getElementById(id)) closeLegal(id.replace('modal-',''));
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    ['privacy','terms'].forEach(function(t) { closeLegal(t); });
+  }
+});
 </script>
 </body>
 </html>
