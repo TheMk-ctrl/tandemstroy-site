@@ -996,10 +996,8 @@ footer {
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
     const img = document.createElement('img');
-    img.src    = i <= 2 ? `${BASE_URL}/pictures/photo${i}.png` : '';
-    img.dataset.src = `${BASE_URL}/pictures/photo${i}.png`;
+    img.src    = `${BASE_URL}/pictures/photo${i}.png`;
     img.alt    = `Фото техники ТандемСтрой ${i}`;
-    img.loading = i <= 2 ? 'eager' : 'lazy';
     slide.appendChild(img);
     track.appendChild(slide);
 
@@ -1026,14 +1024,6 @@ footer {
     // Update dots
     document.querySelectorAll('.carousel-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
-    });
-
-    // Lazy-load upcoming images
-    [current, current + 1, current + 2].forEach(n => {
-      if (n < TOTAL) {
-        const img = track.children[n].querySelector('img');
-        if (img && !img.src) img.src = img.dataset.src;
-      }
     });
 
     restartTimer();
