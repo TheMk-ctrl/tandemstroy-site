@@ -66,7 +66,7 @@
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
       "opens": "08:00",
-      "closes": "17:00"
+      "closes": "20:00"
     }
   ],
   "areaServed": [
@@ -248,7 +248,6 @@ nav {
 }
 .map-svg { width: 100%; height: auto; }
 
-/* Города */
 .city-dot {
   fill: rgba(255,255,255,.15);
   stroke: rgba(255,255,255,.3);
@@ -268,7 +267,6 @@ nav {
 }
 .city-label.active { fill: var(--amber); font-weight: 600; }
 
-/* Маршруты */
 .route {
   fill: none;
   stroke: rgba(232,160,32,.25);
@@ -285,18 +283,6 @@ nav {
 }
 @keyframes drawRoute {
   to { stroke-dashoffset: 0; }
-}
-
-/* Грузовик-иконка вдоль маршрута */
-.truck-marker {
-  animation: moveTruck 2.4s ease forwards .6s;
-  opacity: 0;
-}
-@keyframes moveTruck {
-  0%   { opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; }
 }
 
 /* ── STATS ──────────────────────────────────────────────────── */
@@ -495,6 +481,97 @@ section { padding: 100px 5vw; }
 }
 .step p { font-size: .875rem; color: var(--ink-soft); }
 
+/* ── REVIEWS ────────────────────────────────────────────────── */
+#reviews {
+  background: var(--ink);
+  padding: 80px 0;
+  overflow: hidden;
+}
+.reviews-header {
+  padding: 0 5vw;
+  margin-bottom: 2.5rem;
+}
+#reviews .section-tag  { color: var(--amber); }
+#reviews .section-title { color: var(--white); }
+
+.reviews-marquee-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.reviews-marquee-wrap::before,
+.reviews-marquee-wrap::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
+  pointer-events: none;
+}
+.reviews-marquee-wrap::before { left: 0;  background: linear-gradient(to right, var(--ink), transparent); }
+.reviews-marquee-wrap::after  { right: 0; background: linear-gradient(to left,  var(--ink), transparent); }
+
+.reviews-marquee {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: marqueeScroll 40s linear infinite;
+}
+.reviews-marquee:hover { animation-play-state: paused; }
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.review-card {
+  flex: 0 0 340px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 1.75rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: default;
+  transition: border-color .2s, background .2s;
+}
+.review-card:hover {
+  border-color: rgba(232,160,32,.35);
+  background: rgba(255,255,255,.07);
+}
+.review-stars { display: flex; gap: 3px; }
+.review-text {
+  color: rgba(255,255,255,.8);
+  font-size: .9rem;
+  line-height: 1.65;
+  flex: 1;
+}
+.review-meta {
+  display: flex; align-items: center; gap: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 1rem;
+}
+.review-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--amber);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; font-weight: 700; color: var(--ink);
+  flex-shrink: 0;
+}
+.review-meta-info { flex: 1; min-width: 0; }
+.review-company {
+  font-size: .78rem; font-weight: 600;
+  color: rgba(255,255,255,.7);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.review-date { font-size: .72rem; color: rgba(255,255,255,.3); margin-top: .15rem; }
+.review-badge {
+  font-size: .65rem; letter-spacing: .05em;
+  color: var(--amber);
+  border: 1px solid rgba(232,160,32,.35);
+  padding: .2rem .55rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 /* ── CONTACT ────────────────────────────────────────────────── */
 #contact { background: var(--white); }
 .contact-grid {
@@ -518,7 +595,6 @@ section { padding: 100px 5vw; }
 }
 .contact-detail-text strong { display: block; font-size: .8rem; color: var(--ink-soft); margin-bottom: .1rem; }
 .contact-detail-text span { font-size: .95rem; font-weight: 500; }
-
 
 /* Форма */
 .contact-form { display: flex; flex-direction: column; gap: 1rem; }
@@ -743,7 +819,6 @@ footer {
   30% { transform: translateY(-5px); background: var(--amber); }
 }
 
-/* Быстрые кнопки */
 .chat-quick {
   padding: .5rem 1.25rem .75rem;
   display: flex; gap: .5rem; flex-wrap: wrap;
@@ -800,87 +875,6 @@ footer {
   background: var(--snow);
   padding: 48px 5vw 52px;
 }
-.about-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4vw;
-  align-items: start;
-}
-.about-left {}
-.about-label {
-  font-family: 'Inter', sans-serif;
-  font-size: .72rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: .75rem;
-}
-.about-title {
-  font-family: 'Geologica', sans-serif;
-  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: -.02em;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-}
-.about-title em { font-style: normal; color: var(--amber); }
-.about-desc {
-  color: rgba(255,255,255,.6);
-  font-size: .9rem;
-  line-height: 1.75;
-  max-width: 44ch;
-  margin-bottom: 2rem;
-}
-.about-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.about-stat {
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 10px;
-  padding: 1rem 1.1rem;
-}
-.about-stat-val {
-  font-family: 'Geologica', sans-serif;
-  font-size: 1.6rem; font-weight: 700;
-  color: var(--amber);
-  line-height: 1;
-  margin-bottom: .3rem;
-}
-.about-stat-label {
-  font-size: .75rem;
-  color: rgba(255,255,255,.45);
-  line-height: 1.4;
-}
-.about-pillars {
-  display: flex; flex-direction: column; gap: .75rem;
-}
-.about-pillar {
-  display: flex; align-items: flex-start; gap: .75rem;
-}
-.about-pillar-icon {
-  flex-shrink: 0;
-  width: 32px; height: 32px;
-  background: rgba(232,160,32,.12);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .95rem;
-}
-.about-pillar-text strong {
-  display: block;
-  font-size: .85rem; font-weight: 600;
-  color: var(--white);
-  margin-bottom: .1rem;
-}
-.about-pillar-text span {
-  font-size: .78rem;
-  color: rgba(255,255,255,.45);
-}
-
 .carousel-label {
   font-family: 'Inter', sans-serif;
   font-size: .72rem;
@@ -898,7 +892,6 @@ footer {
   margin-bottom: 1.25rem;
 }
 
-/* Viewport window */
 .carousel-viewport {
   position: relative;
   width: 100%;
@@ -914,7 +907,6 @@ footer {
 }
 .carousel-viewport:active { cursor: grabbing; }
 
-/* Track */
 .carousel-track {
   display: flex;
   height: 100%;
@@ -937,7 +929,6 @@ footer {
   display: block;
 }
 
-/* Arrows */
 .carousel-btn {
   position: absolute; top: 50%; z-index: 10;
   transform: translateY(-50%);
@@ -956,7 +947,6 @@ footer {
 .carousel-prev { left: 12px; }
 .carousel-next { right: 12px; }
 
-/* Dots */
 .carousel-dots {
   display: flex; justify-content: center; gap: 5px;
   padding: 14px 0 0;
@@ -981,7 +971,7 @@ footer {
   .hero-stats { gap: 1.5rem; }
   .contact-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
+  .nav-links li:not(:last-child) { display: none; }
 }
 @media (max-width: 480px) {
   section { padding: 64px 5vw; }
@@ -991,6 +981,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .route-active { animation: none; stroke-dashoffset: 0; }
   .msg { animation: none; }
+  .reviews-marquee { animation: none; }
 }
 </style>
 </head>
@@ -1000,11 +991,12 @@ footer {
 <nav>
   <div class="nav-logo">Тандем<span>Строй</span></div>
   <ul class="nav-links">
-    <li><a href="#contact">Контакты</a></li>
     <li><a href="#services">Услуги</a></li>
     <li><a href="#geography">География</a></li>
     <li><a href="#how">Как работаем</a></li>
     <li><a href="#edo">ЭДО и ЭТрН</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#contact">Контакты</a></li>
     <li><a href="#contact" class="nav-cta">Оставить заявку</a></li>
   </ul>
 </nav>
@@ -1047,67 +1039,43 @@ footer {
   <div class="hero-map">
     <div class="map-wrap">
       <svg class="map-svg" viewBox="0 0 460 400" xmlns="http://www.w3.org/2000/svg">
-        <!-- Фон-подложка -->
         <rect width="460" height="400" fill="rgba(255,255,255,.02)" rx="12"/>
-
-        <!-- Сетка -->
         <line x1="0" y1="100" x2="460" y2="100" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
         <line x1="0" y1="200" x2="460" y2="200" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
         <line x1="0" y1="300" x2="460" y2="300" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
         <line x1="115" y1="0" x2="115" y2="400" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
         <line x1="230" y1="0" x2="230" y2="400" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
         <line x1="345" y1="0" x2="345" y2="400" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-
-        <!-- Области (условные контуры) -->
         <polygon points="80,60 180,50 200,140 140,160 70,130" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
         <polygon points="180,50 290,60 300,150 200,140" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
         <polygon points="290,60 390,80 380,180 300,150" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
         <polygon points="70,130 140,160 160,260 80,270" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
         <polygon points="140,160 200,140 220,240 160,260" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
         <polygon points="200,140 300,150 320,250 220,240" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-
-        <!-- Маршруты (фон) -->
         <path class="route" d="M 130,100 Q 190,130 230,200 Q 270,250 310,130"/>
         <path class="route" d="M 130,100 Q 150,170 155,215"/>
         <path class="route" d="M 230,200 Q 210,230 155,215"/>
         <path class="route" d="M 310,130 Q 340,170 260,245"/>
-
-        <!-- Маршрут-анимация (Воронеж → все) -->
         <path class="route-active" d="M 230,200 Q 175,165 130,100"/>
         <path class="route-active" style="animation-delay:.9s" d="M 230,200 Q 270,165 310,130"/>
         <path class="route-active" style="animation-delay:1.2s" d="M 230,200 Q 210,220 155,215"/>
         <path class="route-active" style="animation-delay:1.5s" d="M 230,200 Q 250,225 260,245"/>
-
-        <!-- Города -->
-        <!-- Орёл -->
         <circle cx="130" cy="100" r="5" class="city-dot"/>
         <text x="140" y="98" class="city-label">Орёл</text>
-
-        <!-- Курск -->
         <circle cx="155" cy="215" r="5" class="city-dot"/>
         <text x="165" y="213" class="city-label">Курск</text>
-
-        <!-- Белгород -->
         <circle cx="260" cy="245" r="5" class="city-dot"/>
         <text x="270" y="243" class="city-label">Белгород</text>
-
-        <!-- Тамбов -->
         <circle cx="310" cy="130" r="5" class="city-dot"/>
         <text x="320" y="128" class="city-label">Тамбов</text>
-
-        <!-- Липецк -->
         <circle cx="258" cy="105" r="5" class="city-dot"/>
         <text x="268" y="103" class="city-label">Липецк</text>
-
-        <!-- Воронеж — активный -->
         <circle cx="230" cy="200" r="7" class="city-dot active"/>
         <text x="242" y="198" class="city-label active">Воронеж</text>
         <circle cx="230" cy="200" r="14" fill="none" stroke="rgba(232,160,32,.2)" stroke-width="1">
           <animate attributeName="r" values="10;20;10" dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values=".4;0;.4" dur="2.5s" repeatCount="indefinite"/>
         </circle>
-
-        <!-- Лейбл карты -->
         <text x="230" y="370" text-anchor="middle" fill="rgba(255,255,255,.18)" font-family="Inter,sans-serif" font-size="10">
           Зона покрытия — Центральная Россия
         </text>
@@ -1122,10 +1090,7 @@ footer {
   <h2 class="carousel-title">Что мы уже перевозили</h2>
 
   <div class="carousel-viewport" id="carouselViewport">
-    <div class="carousel-track" id="carouselTrack">
-      <!-- слайды генерируются скриптом -->
-    </div>
-
+    <div class="carousel-track" id="carouselTrack"></div>
     <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Предыдущее фото">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
@@ -1147,7 +1112,6 @@ footer {
   const dots    = document.getElementById('carouselDots');
   const viewport = document.getElementById('carouselViewport');
 
-  // Build slides
   for (let i = 1; i <= TOTAL; i++) {
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
@@ -1169,19 +1133,13 @@ footer {
   let startX, startY, isDragging = false;
 
   function goTo(idx) {
-    // Clamp
     idx = Math.max(0, Math.min(TOTAL - 1, idx));
     current = idx;
-
-    // Move track
     track.style.transition = 'transform .55s cubic-bezier(.4,0,.2,1)';
     track.style.transform  = `translateX(-${current * 100}%)`;
-
-    // Update dots
     document.querySelectorAll('.carousel-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
     });
-
     restartTimer();
   }
 
@@ -1191,13 +1149,11 @@ footer {
   document.getElementById('carouselNext').addEventListener('click', next);
   document.getElementById('carouselPrev').addEventListener('click', prev);
 
-  // Keyboard
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') next();
     if (e.key === 'ArrowLeft')  prev();
   });
 
-  // Touch / mouse swipe
   function onPointerDown(e) {
     startX = e.touches ? e.touches[0].clientX : e.clientX;
     startY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -1208,7 +1164,7 @@ footer {
     if (!isDragging) return;
     const dx = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
     const dy = (e.touches ? e.touches[0].clientY : e.clientY) - startY;
-    if (Math.abs(dy) > Math.abs(dx)) return; // vertical scroll takes priority
+    if (Math.abs(dy) > Math.abs(dx)) return;
     e.preventDefault();
     track.style.transform = `translateX(calc(-${current * 100}% + ${dx}px))`;
   }
@@ -1218,7 +1174,7 @@ footer {
     const dx = (e.changedTouches ? e.changedTouches[0].clientX : e.clientX) - startX;
     if (dx < -50) next();
     else if (dx > 50) prev();
-    else goTo(current); // snap back
+    else goTo(current);
   }
 
   viewport.addEventListener('mousedown',  onPointerDown);
@@ -1229,7 +1185,6 @@ footer {
   viewport.addEventListener('touchmove',  onPointerMove, { passive: false });
   viewport.addEventListener('touchend',   onPointerUp);
 
-  // Autoplay — pause on hover
   function restartTimer() {
     clearInterval(timer);
     timer = setInterval(next, AUTOPLAY_MS);
@@ -1269,8 +1224,6 @@ footer {
 
   <!-- Фото-карточки направлений -->
   <div class="photo-cards-grid" style="margin-top:2.5rem;">
-
-    <!-- 01 Негабарит и тралы -->
     <div class="photo-card">
       <img src="negabarit.jpg" alt="Негабарит и тралы — перевозка тяжёлых грузов">
       <div class="photo-card-overlay"></div>
@@ -1286,8 +1239,6 @@ footer {
         </div>
       </div>
     </div>
-
-    <!-- 02 Перевозка спецтехники -->
     <div class="photo-card">
       <img src="spetstekhnika.jpg" alt="Перевозка спецтехники — экскаваторы, краны, погрузчики">
       <div class="photo-card-overlay"></div>
@@ -1303,8 +1254,6 @@ footer {
         </div>
       </div>
     </div>
-
-    <!-- 03 Перевозка оборудования -->
     <div class="photo-card">
       <img src="oborudovanie.jpg" alt="Перевозка производственного оборудования">
       <div class="photo-card-overlay"></div>
@@ -1316,12 +1265,9 @@ footer {
           <span class="photo-card-tag amber">от 80 ₽/км</span>
           <span class="photo-card-tag">крепление</span>
           <span class="photo-card-tag">строповка</span>
-
         </div>
       </div>
     </div>
-
-    <!-- 04 Перевозка металлоконструкций -->
     <div class="photo-card">
       <img src="metall.jpg" alt="Перевозка металлоконструкций — балки, трубы, фермы">
       <div class="photo-card-overlay"></div>
@@ -1337,7 +1283,6 @@ footer {
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1384,7 +1329,7 @@ footer {
   <div class="steps">
     <div class="step">
       <h3>Заявка</h3>
-      <p>Оставьте заявку на сайте, напишите на <a href="mailto:tandemstroj@mail.ru" style="color:var(--amber);">tandemstroj@mail.ru</a> или позвоните. Ответим в рабочее время (Пн–Пт, 8:30–17:00).</p>
+      <p>Оставьте заявку на сайте, напишите на <a href="mailto:tandemstroj@mail.ru" style="color:var(--amber);">tandemstroj@mail.ru</a> или позвоните. Ответим в рабочее время (Пн–Пт, 8:30–20:00).</p>
     </div>
     <div class="step">
       <h3>Расчёт и договор</h3>
@@ -1440,6 +1385,58 @@ footer {
   </div>
 </section>
 
+<!-- ── REVIEWS ── -->
+<section id="reviews">
+  <div class="reviews-header">
+    <div class="section-tag">Нам доверяют</div>
+    <h2 class="section-title">Отзывы клиентов</h2>
+  </div>
+  <div class="reviews-marquee-wrap">
+    <div class="reviews-marquee" id="reviewsMarquee"></div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const REVIEWS = [
+    { text: "Благодарю за работу! Погрузка и разгрузка в срок! Рекомендую! Желаю процветания!", company: "СЛОН, ООО", reviewer: "Попова Анастасия", date: "29 окт 2025", stars: 5 },
+    { text: "Рекомендуем как ответственного и добросовестного перевозчика! Доставка груза и оформление документов на высоком уровне! Надеемся на дальнейшее сотрудничество!", company: "ТРАНСПОРТНЫЕ РЕШЕНИЯ, ООО", reviewer: "Калин Константин", date: "30 сен 2025", stars: 5 },
+    { text: "Надёжные партнёры, работа прошла без нареканий, только положительные эмоции. Рекомендуем к сотрудничеству!", company: "ТЛК-ГРУП, ООО", reviewer: "Менеджер по работе с перевозчиками", date: "04 июл 2025", stars: 5 },
+    { text: "Ответственный перевозчик! Качественно организовали перевозку 4-х машин негабаритного груза, сроки доставки соблюдены. Менеджер Алексей всегда на связи и никаких проблем! Рекомендую к сотрудничеству!", company: "ТК «МТЛ» (АГРОАНГАР, ООО)", reviewer: "Денис", date: "28 мая 2025", stars: 5 },
+    { text: "Отличный перевозчик, рада сотрудничеству! Успехов и процветания!", company: "Хатламаджиева Гульнара, физ.лицо", reviewer: "Гульнара", date: "02 июл 2024", stars: 4 },
+    { text: "Александр, благодарим за оперативную и качественную доставку груза! Приятно было работать. Успехов и процветания!", company: "ИП Любоведский Я.М.", reviewer: "Яков", date: "21 июн 2024", stars: 5 },
+    { text: "Качественно выполненная работа, постоянная связь даже вне рабочего дня, аккуратный и вежливый водитель. Рекомендуем!", company: "ГалТранс, ООО", reviewer: "Борис", date: "17 июн 2024", stars: 5 },
+    { text: "Рекомендуем, как ответственного перевозчика! Машина подана во время, груз доставлен в целости и сохранности! Все обязательства по договору исполнены точно в срок!", company: "Майорова Светлана Петровна, ИП", reviewer: "Кристина", date: "09 июн 2024", stars: 5 },
+    { text: "Не первый раз работаем с данным перевозчиком, всегда всё на высшем уровне, проверка документации, коммуникация с погрузкой и выгрузкой. Алексей, большое спасибо за честную работу, рекомендуем!", company: "ИСП ЛОГИСТИК, ООО", reviewer: "Михаил", date: "07 июн 2024", stars: 5 },
+    { text: "Рекомендуем перевозчика, груз доставлен точно в срок, моментальная оплата диспетчерских, спасибо Алексею за работу, обязательно будем обращаться ещё.", company: "Раснер Наталья Петровна, СЗ", reviewer: "Наталья", date: "06 июн 2024", stars: 4 },
+    { text: "Перевозка прошла отлично. Быстро и грамотно погрузка-разгрузка! Работали на честном слове! Приятно работать с профи! Всем рекомендую. Респект!", company: "ТЭК (ИМПЕРИЯ, ООО)", reviewer: "Андрей", date: "07 фев 2024", stars: 5 },
+  ];
+
+  function makeCard(r) {
+    const initials = r.reviewer.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = `
+      <div class="review-stars">${[...Array(5)].map((_,i) =>
+        `<span style="color:${i < r.stars ? '#E8A020' : 'rgba(255,255,255,0.18)'}">★</span>`
+      ).join('')}</div>
+      <p class="review-text">${r.text}</p>
+      <div class="review-meta">
+        <div class="review-avatar">${initials}</div>
+        <div class="review-meta-info">
+          <div class="review-company">${r.company}</div>
+          <div class="review-date">${r.date}</div>
+        </div>
+        <div class="review-badge">ATI.SU ✓</div>
+      </div>`;
+    return card;
+  }
+
+  const marquee = document.getElementById('reviewsMarquee');
+  [...REVIEWS, ...REVIEWS].forEach(r => marquee.appendChild(makeCard(r)));
+})();
+</script>
+
 <!-- ── CONTACT ── -->
 <section id="contact">
   <div class="section-tag">Связь</div>
@@ -1447,7 +1444,6 @@ footer {
   <div class="contact-grid">
     <div class="contact-info">
       <p>Оставьте заявку на сайте или свяжитесь напрямую — по телефону или почте. Условия обсуждаем индивидуально.</p>
-      <!-- Телефон с иконкой MAX -->
       <div class="contact-detail">
         <div class="contact-detail-icon">📞</div>
         <div class="contact-detail-text">
@@ -1467,8 +1463,6 @@ footer {
           <a href="https://t.me/+79081416821" style="color:var(--amber);text-decoration:none;display:block;">+7 (908) 141-68-21</a>
         </div>
       </div>
-
-
       <div class="contact-detail">
         <div class="contact-detail-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1485,7 +1479,7 @@ footer {
         <div class="contact-detail-icon">🕐</div>
         <div class="contact-detail-text">
           <strong>Режим работы</strong>
-          <span>Пн–Пт 8:30–17:00</span>
+          <span>Пн–Пт 8:30–20:00</span>
         </div>
       </div>
     </div>
@@ -1560,18 +1554,13 @@ footer {
     </div>
     <button class="chat-close-btn" onclick="toggleChat()" aria-label="Закрыть чат">✕</button>
   </div>
-
-  <div class="chat-messages" id="chat-messages">
-    <!-- Приветственное сообщение появится через JS -->
-  </div>
-
+  <div class="chat-messages" id="chat-messages"></div>
   <div class="chat-quick" id="chat-quick">
     <button class="quick-btn" onclick="sendQuick(this)">Сколько стоит доставка?</button>
     <button class="quick-btn" onclick="sendQuick(this)">Какие города охватываете?</button>
     <button class="quick-btn" onclick="sendQuick(this)">Сроки доставки</button>
     <button class="quick-btn" onclick="sendQuick(this)">Связаться с менеджером</button>
   </div>
-
   <div class="chat-input-row">
     <input id="chat-input" type="text" placeholder="Напишите вопрос…" autocomplete="off"
       onkeydown="if(event.key==='Enter')sendMessage()">
@@ -1582,28 +1571,17 @@ footer {
 </div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────────
-// После деплоя на Render замените на: "https://tandemstroy-api.onrender.com"
 const BASE_URL = "https://tandemstroy-tandemstroy.waw0.amvera.tech";
 const API_URL  = BASE_URL + "/chat";
 
-const SYSTEM_PROMPT = `Ты — вежливый ИИ-ассистент компании ТандемСтрой.
-Компания занимается грузоперевозками по всему Черноземью: Воронежская, Белгородская, Курская, Липецкая, Тамбовская, Орловская области.
-Отвечай на вопросы об услугах, ценах, сроках доставки, географии работы.
-Если клиент хочет оформить заказ — предложи позвонить +7 (903) 656-56-56 или оставить заявку на сайте.
-Отвечай кратко и по делу. Только русский язык.`;
-
 let chatHistory = [];
 let chatOpened  = false;
-// Уникальный ID сессии — генерируется один раз на загрузку страницы
 const SESSION_ID = Math.random().toString(36).slice(2) + Date.now().toString(36);
 
-// ── CHAT OPEN/CLOSE ───────────────────────────────────────────────────────────
 function toggleChat() {
   const win = document.getElementById('chat-window');
   const btn = document.getElementById('chat-btn');
   const isOpen = win.classList.contains('visible');
-
   if (isOpen) {
     win.classList.remove('visible');
     btn.classList.remove('open');
@@ -1615,20 +1593,10 @@ function toggleChat() {
   }
 }
 
-function openChat() {
-  const win = document.getElementById('chat-window');
-  const btn = document.getElementById('chat-btn');
-  win.classList.add('visible');
-  btn.classList.add('open');
-  if (!chatOpened) { initChat(); chatOpened = true; }
-  setTimeout(() => document.getElementById('chat-input').focus(), 250);
-}
-
 function initChat() {
   addBotMessage("Здравствуйте! Я помогу вам с вопросами о перевозке негабаритных грузов и спецтехники. Что вас интересует?");
 }
 
-// ── MESSAGES ──────────────────────────────────────────────────────────────────
 function now() {
   return new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' });
 }
@@ -1670,13 +1638,11 @@ function escapeHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
 
-// ── SEND ──────────────────────────────────────────────────────────────────────
 async function sendMessage() {
   const input = document.getElementById('chat-input');
   const text  = input.value.trim();
   if (!text) return;
   input.value = '';
-  // Скрываем быстрые кнопки после первого сообщения
   document.getElementById('chat-quick').style.display = 'none';
   await processMessage(text);
 }
@@ -1690,7 +1656,6 @@ async function processMessage(text) {
   addUserMessage(text);
   const typing = showTyping();
   chatHistory.push({ role: 'user', content: text });
-
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
@@ -1705,14 +1670,12 @@ async function processMessage(text) {
     addBotMessage(reply);
   } catch (err) {
     removeTyping();
-    // Fallback-режим: пока бэкенд не поднят
     const fallback = getFallbackReply(text);
     chatHistory.push({ role: 'assistant', content: fallback });
     addBotMessage(fallback);
   }
 }
 
-// Fallback пока API не готово
 function getFallbackReply(text) {
   const t = text.toLowerCase();
   if (t.includes('цен') || t.includes('стоим') || t.includes('сколько'))
@@ -1722,7 +1685,7 @@ function getFallbackReply(text) {
   if (t.includes('срок') || t.includes('быстро') || t.includes('когда'))
     return 'Среднее время доставки — 24 часа по региону. Срочная доставка в тот же день при отправке до 14:00.';
   if (t.includes('менеджер') || t.includes('оператор') || t.includes('связ') || t.includes('позвон'))
-    return 'Звоните: +7 (903) 656-56-56 · Пн–Пт 8:30–17:00. Или оставьте заявку на сайте — перезвоним за 15 минут.';
+    return 'Звоните: +7 (903) 656-56-56 · Пн–Пт 8:30–20:00. Или оставьте заявку на сайте — перезвоним за 15 минут.';
   if (t.includes('строит') || t.includes('кирпич') || t.includes('блок'))
     return 'Да, перевозим строительные материалы — кирпич, блоки, металл, трубы. Работаем со стройплощадками и снабженцами.';
   if (t.includes('зерн') || t.includes('сельх') || t.includes('урожай'))
@@ -1730,13 +1693,11 @@ function getFallbackReply(text) {
   return 'Спасибо за вопрос! Наш менеджер ответит подробнее — позвоните +7 (903) 656-56-56 или оставьте заявку на сайте.';
 }
 
-// ── FORM ──────────────────────────────────────────────────────────────────────
 async function handleForm(e) {
   e.preventDefault();
   const form = e.target;
   const btn  = form.querySelector('.form-submit');
-
-  const inputs   = form.querySelectorAll('input, textarea');
+  const inputs = form.querySelectorAll('input, textarea');
   const name      = inputs[0].value.trim();
   const phone     = inputs[1].value.trim();
   const email     = inputs[2].value.trim();
@@ -1753,12 +1714,10 @@ async function handleForm(e) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, phone, email, from_city, to_city, cargo_info }),
     });
-
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
       throw new Error(err.detail || "Ошибка сервера");
     }
-
     btn.textContent = '✓ Заявка отправлена!';
     btn.style.background = '#27ae60';
     form.reset();
@@ -1767,12 +1726,10 @@ async function handleForm(e) {
       btn.style.background = '';
       btn.disabled = false;
     }, 4000);
-
   } catch (err) {
     btn.textContent = 'Ошибка — попробуйте ещё раз';
     btn.style.background = '#e74c3c';
     btn.disabled = false;
-    console.error("Lead submit error:", err);
     setTimeout(() => {
       btn.textContent = 'Отправить заявку';
       btn.style.background = '';
@@ -1782,46 +1739,33 @@ async function handleForm(e) {
 </script>
 
 <script>
-// ── МАСКА ТЕЛЕФОНА +7 (900) 566-56-57 ──
 (function () {
   const inp = document.getElementById('phone-input');
   if (!inp) return;
 
   function applyMask(raw) {
-    // Оставляем только цифры
     let digits = raw.replace(/\D/g, '');
-
-    // Если начинается с 8 — заменяем на 7
     if (digits.startsWith('8')) digits = '7' + digits.slice(1);
-    // Если начинается не с 7 — добавляем 7 в начало
     if (!digits.startsWith('7')) digits = '7' + digits;
-
-    // Обрезаем до 11 цифр
     digits = digits.slice(0, 11);
-
-    // Собираем маску +7 (XXX) XXX-XX-XX
     let result = '+7';
     if (digits.length > 1) result += ' (' + digits.slice(1, 4);
     if (digits.length >= 4) result += ') ' + digits.slice(4, 7);
     if (digits.length >= 7) result += '-' + digits.slice(7, 9);
     if (digits.length >= 9) result += '-' + digits.slice(9, 11);
-
     return result;
   }
 
-  inp.addEventListener('input', function (e) {
+  inp.addEventListener('input', function () {
     const pos = inp.selectionStart;
     const old = inp.value;
     const masked = applyMask(inp.value);
     inp.value = masked;
-
-    // Сохраняем позицию курсора примерно там же
     const diff = masked.length - old.length;
     inp.setSelectionRange(pos + diff, pos + diff);
   });
 
   inp.addEventListener('keydown', function (e) {
-    // При нажатии Backspace на разделителе — удаляем цифру перед ним
     if (e.key === 'Backspace') {
       const pos = inp.selectionStart;
       const val = inp.value;
@@ -1834,15 +1778,11 @@ async function handleForm(e) {
     }
   });
 
-  inp.addEventListener('focus', function () {
-    if (!inp.value) inp.value = '+7 (';
-  });
-
-  inp.addEventListener('blur', function () {
-    if (inp.value === '+7 (') inp.value = '';
-  });
+  inp.addEventListener('focus', function () { if (!inp.value) inp.value = '+7 ('; });
+  inp.addEventListener('blur',  function () { if (inp.value === '+7 (') inp.value = ''; });
 })();
 </script>
+
 <!-- ── ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ── -->
 <div class="legal-modal-overlay" id="modal-privacy" onclick="closeLegalOnOverlay(event,'modal-privacy')">
   <div class="legal-modal">
@@ -1852,50 +1792,36 @@ async function handleForm(e) {
     </div>
     <div class="legal-modal-body">
       <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки персональных данных пользователей сайта <strong>tandemstroy-vrn.ru</strong>, принадлежащего ООО «ТандемСтрой» (далее — «Оператор»).</p>
-
       <h3>1. Какие данные мы собираем</h3>
-      <p>При заполнении формы заявки мы получаем следующие персональные данные:</p>
       <ul>
         <li>Имя и фамилия</li>
         <li>Номер телефона</li>
         <li>Адрес электронной почты</li>
         <li>Информация о маршруте и грузе (не является персональными данными)</li>
       </ul>
-
       <h3>2. Цели обработки данных</h3>
-      <p>Персональные данные обрабатываются исключительно в следующих целях:</p>
       <ul>
         <li>Обработка и выполнение заявки на грузоперевозку</li>
         <li>Связь с клиентом для уточнения деталей заказа</li>
         <li>Отправка информационных сообщений об услугах компании (с возможностью отказа)</li>
       </ul>
-
       <h3>3. Основание обработки</h3>
       <p>Обработка персональных данных осуществляется на основании согласия субъекта персональных данных (ст. 6 Федерального закона № 152-ФЗ «О персональных данных»).</p>
-
       <h3>4. Хранение и защита данных</h3>
       <p>Данные хранятся на защищённых серверах с ограниченным доступом. Мы не передаём персональные данные третьим лицам без явного согласия, за исключением случаев, предусмотренных законодательством РФ.</p>
-
       <h3>5. Срок хранения</h3>
       <p>Персональные данные хранятся до момента отзыва согласия субъектом, либо не более 3 лет с момента последнего взаимодействия.</p>
-
       <h3>6. Права пользователя</h3>
-      <p>Вы вправе в любое время:</p>
       <ul>
         <li>Запросить информацию об обрабатываемых данных</li>
         <li>Потребовать исправления или удаления данных</li>
         <li>Отозвать согласие на обработку</li>
       </ul>
       <p>Для реализации прав обратитесь по электронной почте: <strong>m76655892@gmail.com</strong></p>
-
       <h3>7. Cookies</h3>
       <p>Сайт использует технические cookies для корректной работы. Персональные данные через cookies не собираются.</p>
-
       <h3>8. Контакты оператора</h3>
-      <p>ООО «ТандемСтрой», Воронеж<br>
-      Тел.: +7 (903) 656-56-56<br>
-      Email: m76655892@gmail.com</p>
-
+      <p>ООО «ТандемСтрой», Воронеж<br>Тел.: +7 (903) 656-56-56<br>Email: m76655892@gmail.com</p>
       <p style="margin-top:1.5rem;font-size:.8rem;color:#9ca3af;">Дата последнего обновления: октябрь 2026 г.</p>
     </div>
   </div>
@@ -1910,42 +1836,31 @@ async function handleForm(e) {
     </div>
     <div class="legal-modal-body">
       <p>Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует использование сайта <strong>tandemstroy-vrn.ru</strong> (далее — «Сайт»). Используя Сайт, вы принимаете условия настоящего Соглашения.</p>
-
       <h3>1. Общие положения</h3>
       <p>Сайт принадлежит и управляется ООО «ТандемСтрой». Информация, размещённая на Сайте, носит ознакомительный характер и не является публичной офертой.</p>
-
       <h3>2. Условия использования сайта</h3>
-      <p>Пользователь обязуется:</p>
       <ul>
         <li>Использовать Сайт только в законных целях</li>
         <li>Предоставлять достоверную информацию при заполнении форм</li>
         <li>Не нарушать работу Сайта и его технической инфраструктуры</li>
         <li>Не копировать и не распространять материалы Сайта без разрешения</li>
       </ul>
-
       <h3>3. Оформление заявки</h3>
       <p>Заявка, поданная через форму на Сайте, является предварительным запросом на услугу грузоперевозки. Договор на оказание услуг заключается отдельно после согласования условий с менеджером компании.</p>
-
       <h3>4. Интеллектуальная собственность</h3>
       <p>Все материалы Сайта (тексты, изображения, дизайн, логотипы) являются собственностью ООО «ТандемСтрой» и защищены законодательством об авторском праве. Любое использование без письменного разрешения запрещено.</p>
-
       <h3>5. Ограничение ответственности</h3>
-      <p>ООО «ТандемСтрой» не несёт ответственности за:</p>
       <ul>
         <li>Временную недоступность Сайта по техническим причинам</li>
         <li>Действия третьих лиц, получивших доступ к данным пользователя вследствие действий самого пользователя</li>
         <li>Содержимое внешних ресурсов, на которые ведут ссылки с Сайта</li>
       </ul>
-
       <h3>6. Изменение условий</h3>
       <p>Мы вправе в любое время изменить настоящее Соглашение. Актуальная версия всегда доступна на Сайте. Продолжение использования Сайта после публикации изменений означает ваше согласие с новыми условиями.</p>
-
       <h3>7. Применимое право</h3>
       <p>Настоящее Соглашение регулируется законодательством Российской Федерации. Все споры разрешаются в судебном порядке по месту нахождения Оператора.</p>
-
       <h3>8. Контакты</h3>
       <p>По вопросам, связанным с Соглашением: <strong>m76655892@gmail.com</strong></p>
-
       <p style="margin-top:1.5rem;font-size:.8rem;color:#9ca3af;">Дата последнего обновления: октябрь 2026 г.</p>
     </div>
   </div>
