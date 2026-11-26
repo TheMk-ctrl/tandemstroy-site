@@ -12,8 +12,7 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://tandemstroy-vrn.ru/">
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<body>Verification: 963faaaa806f4743</body>
+<meta name="yandex-verification" content="963faaaa806f4743">
 
 <!-- ── Open Graph (превью в соцсетях и мессенджерах) ──────── -->
 <meta property="og:type" content="website">
@@ -38,7 +37,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#E65C00">
+<meta name="theme-color" content="#E8A020">
 
 <!-- ── Schema.org — LocalBusiness (JSON-LD) ───────────────── -->
 <script type="application/ld+json">
@@ -48,8 +47,8 @@
   "name": "ТандемСтрой",
   "description": "Грузоперевозки по Воронежской, Белгородской, Курской, Липецкой, Тамбовской и Орловской областям",
   "url": "https://tandemstroy-vrn.ru",
-  "telephone": "+79036565656",
-  "email": "m76655892@gmail.com",
+  "telephone": "+7 (903) 656-56-56",
+  "email": "tandemstroj@mail.ru",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Воронеж",
@@ -90,10 +89,15 @@
 <style>
 /* ── ТОКЕНЫ ─────────────────────────────────────────────────── */
 :root {
+  /* Текстовые токены */
   --ink:       #0D1B2A;
   --ink-soft:  #2C3E50;
+  /* Фиксированные цвета — не меняются ни в какой теме */
+  --dark-bg:    #0D1B2A;
+  --always-white: #FFFFFF;
   --amber:     #E8A020;
   --amber-dim: #C4871A;
+  /* Светлые фоны — меняются в тёмной теме */
   --snow:      #F5F5F0;
   --mist:      #E8E8E2;
   --white:     #FFFFFF;
@@ -105,10 +109,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --snow:    #111820;
-    --mist:    #1C2733;
-    --chat-bg: #161E27;
-    --white:   #1A2535;
+    /* Текст становится светлым */
+    --ink:      #E8EDF2;
+    --ink-soft: #A0B0C0;
+    /* Светлые фоны становятся тёмными */
+    --snow:     #111820;
+    --mist:     #1C2733;
+    --white:    #1A2535;
+    --chat-bg:  #161E27;
+    --shadow:   0 2px 24px rgba(0,0,0,.35);
+    /* --dark-bg остаётся прежним — тёмные секции не меняются */
   }
 }
 
@@ -138,7 +148,7 @@ nav {
 .nav-logo {
   font-family: 'Geologica', sans-serif;
   font-weight: 700; font-size: 1.1rem;
-  color: var(--white);
+  color: var(--always-white);
   letter-spacing: -.01em;
 }
 .nav-logo span { color: var(--amber); }
@@ -153,19 +163,19 @@ nav {
 .nav-links a:hover { color: var(--amber); }
 .nav-cta {
   background: var(--amber);
-  color: var(--ink) !important;
+  color: var(--dark-bg) !important;
   font-weight: 500;
   padding: .45rem 1.1rem;
   border-radius: var(--r);
   font-size: .875rem;
   transition: background .2s;
 }
-.nav-cta:hover { background: var(--amber-dim) !important; color: var(--ink) !important; }
+.nav-cta:hover { background: var(--amber-dim) !important; color: var(--dark-bg) !important; }
 
 /* ── HERO ───────────────────────────────────────────────────── */
 #hero {
   min-height: 100svh;
-  background: var(--ink);
+  background: var(--dark-bg);
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -195,7 +205,7 @@ nav {
   font-family: 'Geologica', sans-serif;
   font-size: clamp(2.2rem, 4.5vw, 3.6rem);
   font-weight: 700;
-  color: var(--white);
+  color: var(--always-white);
   line-height: 1.12;
   letter-spacing: -.03em;
   margin-bottom: 1.25rem;
@@ -214,7 +224,7 @@ nav {
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 .btn-primary {
   background: var(--amber);
-  color: var(--ink);
+  color: var(--dark-bg);
   font-weight: 600;
   font-size: .95rem;
   padding: .85rem 2rem;
@@ -235,7 +245,7 @@ nav {
   font-family: 'Inter', sans-serif;
   transition: border-color .2s, color .2s;
 }
-.btn-ghost:hover { border-color: rgba(255,255,255,.4); color: var(--white); }
+.btn-ghost:hover { border-color: rgba(255,255,255,.4); color: var(--always-white); }
 
 /* ── MAP SVG ────────────────────────────────────────────────── */
 .hero-map {
@@ -294,7 +304,7 @@ nav {
 .stat-val {
   font-family: 'Geologica', sans-serif;
   font-size: 1.8rem; font-weight: 700;
-  color: var(--white);
+  color: var(--always-white);
   line-height: 1;
 }
 .stat-label { color: rgba(255,255,255,.4); font-size: .8rem; margin-top: .3rem; }
@@ -426,8 +436,8 @@ section { padding: 100px 5vw; }
 }
 
 /* ── GEOGRAPHY ──────────────────────────────────────────────── */
-#geography { background: var(--ink); }
-#geography .section-title { color: var(--white); }
+#geography { background: var(--dark-bg); }
+#geography .section-title { color: var(--always-white); }
 #geography .section-tag   { color: var(--amber); }
 .regions {
   display: flex; flex-wrap: wrap; gap: .75rem;
@@ -483,7 +493,7 @@ section { padding: 100px 5vw; }
 
 /* ── REVIEWS ────────────────────────────────────────────────── */
 #reviews {
-  background: var(--ink);
+  background: var(--dark-bg);
   padding: 80px 0;
   overflow: hidden;
 }
@@ -492,7 +502,7 @@ section { padding: 100px 5vw; }
   margin-bottom: 2.5rem;
 }
 #reviews .section-tag  { color: var(--amber); }
-#reviews .section-title { color: var(--white); }
+#reviews .section-title { color: var(--always-white); }
 
 .reviews-marquee-wrap {
   position: relative;
@@ -504,8 +514,8 @@ section { padding: 100px 5vw; }
   position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
   pointer-events: none;
 }
-.reviews-marquee-wrap::before { left: 0;  background: linear-gradient(to right, var(--ink), transparent); }
-.reviews-marquee-wrap::after  { right: 0; background: linear-gradient(to left,  var(--ink), transparent); }
+.reviews-marquee-wrap::before { left: 0;  background: linear-gradient(to right, var(--dark-bg), transparent); }
+.reviews-marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--dark-bg), transparent); }
 
 .reviews-marquee {
   display: flex;
@@ -552,7 +562,7 @@ section { padding: 100px 5vw; }
   width: 36px; height: 36px; border-radius: 50%;
   background: var(--amber);
   display: flex; align-items: center; justify-content: center;
-  font-size: .85rem; font-weight: 700; color: var(--ink);
+  font-size: .85rem; font-weight: 700; color: var(--dark-bg);
   flex-shrink: 0;
 }
 .review-meta-info { flex: 1; min-width: 0; }
@@ -619,8 +629,8 @@ section { padding: 100px 5vw; }
 .form-field select:focus { border-color: var(--amber); }
 .form-field textarea { resize: vertical; min-height: 100px; }
 .form-submit {
-  background: var(--ink);
-  color: var(--white);
+  background: var(--dark-bg);
+  color: #FFFFFF;
   border: none; cursor: pointer;
   padding: .9rem 1.5rem;
   border-radius: var(--r);
@@ -671,7 +681,7 @@ section { padding: 100px 5vw; }
 
 /* ── FOOTER ─────────────────────────────────────────────────── */
 footer {
-  background: var(--ink);
+  background: var(--dark-bg);
   color: rgba(255,255,255,.4);
   padding: 3rem 5vw;
   display: flex; align-items: center; justify-content: space-between;
@@ -680,7 +690,7 @@ footer {
 }
 .footer-logo {
   font-family: 'Geologica', sans-serif;
-  font-weight: 700; color: var(--white);
+  font-weight: 700; color: var(--always-white);
 }
 .footer-logo span { color: var(--amber); }
 
@@ -719,7 +729,7 @@ footer {
 }
 
 .chat-header {
-  background: var(--ink);
+  background: var(--dark-bg);
   padding: 1rem 1.25rem;
   display: flex; align-items: center; gap: .75rem;
   flex-shrink: 0;
@@ -742,7 +752,7 @@ footer {
   box-shadow: 0 0 5px rgba(76,175,80,.7);
 }
 .chat-header-info strong {
-  display: block; color: var(--white);
+  display: block; color: var(--always-white);
   font-size: .9rem; font-family: 'Geologica', sans-serif;
 }
 .chat-header-info span {
@@ -786,8 +796,8 @@ footer {
   box-shadow: 0 1px 4px rgba(13,27,42,.06);
 }
 .msg.user {
-  background: var(--ink);
-  color: var(--white);
+  background: var(--dark-bg);
+  color: var(--always-white);
   border-bottom-right-radius: 4px;
   align-self: flex-end;
 }
@@ -1106,7 +1116,7 @@ footer {
 (function () {
   const TOTAL = 35;
   const AUTOPLAY_MS = 4500;
-  const BASE_URL = "https://tandemstroy-tandemstroy.waw0.amvera.tech";
+  // BASE_URL — из глобального скрипта выше
 
   const track   = document.getElementById('carouselTrack');
   const dots    = document.getElementById('carouselDots');
@@ -1116,8 +1126,10 @@ footer {
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
     const img = document.createElement('img');
-    img.src    = `${BASE_URL}/pictures/photo${i}.png`;
-    img.alt    = `Фото техники ТандемСтрой ${i}`;
+    img.src     = `${BASE_URL}/pictures/photo${i}.png`;
+    img.alt     = `Фото техники ТандемСтрой ${i}`;
+    img.loading = i <= 2 ? 'eager' : 'lazy';
+    img.onerror = function() { slide.style.display = 'none'; };
     slide.appendChild(img);
     track.appendChild(slide);
 
@@ -1150,6 +1162,8 @@ footer {
   document.getElementById('carouselPrev').addEventListener('click', prev);
 
   document.addEventListener('keydown', e => {
+    const tag = document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
     if (e.key === 'ArrowRight') next();
     if (e.key === 'ArrowLeft')  prev();
   });
@@ -1289,7 +1303,7 @@ footer {
 <!-- ── GEOGRAPHY ── -->
 <section id="geography">
   <div class="section-tag">Зона покрытия</div>
-  <h2 class="section-title" style="color:var(--white)">Центральная Россия и не только</h2>
+  <h2 class="section-title" style="color:var(--always-white)">Центральная Россия и не только</h2>
   <div class="regions">
     <span class="region-chip hi">📍 Воронежская</span>
     <span class="region-chip hi">📍 Московская обл.</span>
@@ -1347,10 +1361,10 @@ footer {
 </section>
 
 <!-- ── EDO / ETRN ── -->
-<section id="edo" style="background:var(--ink);padding:80px 0;">
+<section id="edo" style="background:var(--dark-bg);padding:80px 0;">
   <div style="max-width:960px;margin:0 auto;padding:0 24px;">
     <div class="section-tag">Документооборот</div>
-    <h2 class="section-title" style="color:var(--white);">Работаем по ЭДО и ЭТрН</h2>
+    <h2 class="section-title" style="color:var(--always-white);">Работаем по ЭДО и ЭТрН</h2>
     <p style="color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.7;max-width:620px;margin:0 0 40px;">
       С 1 сентября 2026 года электронная транспортная накладная (ЭТрН) обязательна для всех
       коммерческих автомобильных грузоперевозок в России. Мы готовы — подключены к оператору
@@ -1359,7 +1373,7 @@ footer {
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
       <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:24px;">
         <div style="font-size:1.8rem;margin-bottom:12px;">📄</div>
-        <h3 style="color:var(--white);font-size:1rem;margin:0 0 8px;">ЭТрН</h3>
+        <h3 style="color:var(--always-white);font-size:1rem;margin:0 0 8px;">ЭТрН</h3>
         <p style="color:rgba(255,255,255,0.55);font-size:.875rem;line-height:1.6;margin:0;">
           Электронная транспортная накладная — цифровой первичный документ, который подтверждает
           факт перевозки и принимается налоговой наравне с бумажным.
@@ -1367,7 +1381,7 @@ footer {
       </div>
       <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:24px;">
         <div style="font-size:1.8rem;margin-bottom:12px;">🔄</div>
-        <h3 style="color:var(--white);font-size:1rem;margin:0 0 8px;">ЭДО</h3>
+        <h3 style="color:var(--always-white);font-size:1rem;margin:0 0 8px;">ЭДО</h3>
         <p style="color:rgba(255,255,255,0.55);font-size:.875rem;line-height:1.6;margin:0;">
           Электронный документооборот — система, через которую передаётся ЭТрН между отправителем,
           перевозчиком и получателем в режиме реального времени.
@@ -1486,31 +1500,31 @@ footer {
     <form class="contact-form" onsubmit="handleForm(event)">
       <div class="form-row">
         <div class="form-field">
-          <label>Имя</label>
-          <input type="text" placeholder="Иван Иванов" required>
+          <label for="f-name">Имя</label>
+          <input type="text" id="f-name" name="name" autocomplete="name" placeholder="Иван Иванов" required>
         </div>
         <div class="form-field">
-          <label>Телефон</label>
-          <input type="tel" id="phone-input" placeholder="+7 (___) ___-__-__" required>
+          <label for="phone-input">Телефон</label>
+          <input type="tel" id="phone-input" name="phone" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
         </div>
       </div>
       <div class="form-field">
-        <label>Email <span style="color:var(--amber)">*</span></label>
-        <input type="email" placeholder="example@mail.ru" required>
+        <label for="f-email">Email <span style="color:var(--amber)">*</span></label>
+        <input type="email" id="f-email" name="email" autocomplete="email" placeholder="example@mail.ru" required>
       </div>
       <div class="form-row">
         <div class="form-field">
-          <label>Откуда</label>
-          <input type="text" placeholder="Воронеж">
+          <label for="f-from">Откуда</label>
+          <input type="text" id="f-from" name="from_city" autocomplete="off" placeholder="Воронеж">
         </div>
         <div class="form-field">
-          <label>Куда</label>
-          <input type="text" placeholder="Белгород">
+          <label for="f-to">Куда</label>
+          <input type="text" id="f-to" name="to_city" autocomplete="off" placeholder="Белгород">
         </div>
       </div>
       <div class="form-field">
-        <label>Тип груза и объём</label>
-        <textarea placeholder="Опишите груз: тип, вес, габариты…"></textarea>
+        <label for="f-cargo">Тип груза и объём</label>
+        <textarea id="f-cargo" name="cargo_info" placeholder="Опишите груз: тип, вес, габариты…"></textarea>
       </div>
       <div class="form-field" style="flex-direction:row;align-items:flex-start;gap:.75rem;margin-top:.25rem;">
         <input type="checkbox" id="consent" required style="margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:var(--amber);cursor:pointer;">
@@ -1666,6 +1680,7 @@ async function processMessage(text) {
     const data = await response.json();
     const reply = data.reply;
     chatHistory.push({ role: 'assistant', content: reply });
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
     removeTyping();
     addBotMessage(reply);
   } catch (err) {
@@ -1697,13 +1712,12 @@ async function handleForm(e) {
   e.preventDefault();
   const form = e.target;
   const btn  = form.querySelector('.form-submit');
-  const inputs = form.querySelectorAll('input, textarea');
-  const name      = inputs[0].value.trim();
-  const phone     = inputs[1].value.trim();
-  const email     = inputs[2].value.trim();
-  const from_city = inputs[3].value.trim();
-  const to_city   = inputs[4].value.trim();
-  const cargo_info = form.querySelector('textarea').value.trim();
+  const name       = form.elements['name'].value.trim();
+  const phone      = form.elements['phone'].value.trim();
+  const email      = form.elements['email'].value.trim();
+  const from_city  = form.elements['from_city'].value.trim();
+  const to_city    = form.elements['to_city'].value.trim();
+  const cargo_info = form.elements['cargo_info'].value.trim();
 
   btn.textContent = 'Отправляем…';
   btn.disabled = true;
@@ -1817,11 +1831,11 @@ async function handleForm(e) {
         <li>Потребовать исправления или удаления данных</li>
         <li>Отозвать согласие на обработку</li>
       </ul>
-      <p>Для реализации прав обратитесь по электронной почте: <strong>m76655892@gmail.com</strong></p>
+      <p>Для реализации прав обратитесь по электронной почте: <strong>tandemstroj@mail.ru</strong></p>
       <h3>7. Cookies</h3>
       <p>Сайт использует технические cookies для корректной работы. Персональные данные через cookies не собираются.</p>
       <h3>8. Контакты оператора</h3>
-      <p>ООО «ТандемСтрой», Воронеж<br>Тел.: +7 (903) 656-56-56<br>Email: m76655892@gmail.com</p>
+      <p>ООО «ТандемСтрой», Воронеж<br>Тел.: +7 (903) 656-56-56<br>Email: tandemstroj@mail.ru</p>
       <p style="margin-top:1.5rem;font-size:.8rem;color:#9ca3af;">Дата последнего обновления: октябрь 2026 г.</p>
     </div>
   </div>
@@ -1860,7 +1874,7 @@ async function handleForm(e) {
       <h3>7. Применимое право</h3>
       <p>Настоящее Соглашение регулируется законодательством Российской Федерации. Все споры разрешаются в судебном порядке по месту нахождения Оператора.</p>
       <h3>8. Контакты</h3>
-      <p>По вопросам, связанным с Соглашением: <strong>m76655892@gmail.com</strong></p>
+      <p>По вопросам, связанным с Соглашением: <strong>tandemstroj@mail.ru</strong></p>
       <p style="margin-top:1.5rem;font-size:.8rem;color:#9ca3af;">Дата последнего обновления: октябрь 2026 г.</p>
     </div>
   </div>
